@@ -4,11 +4,9 @@
 
 ## Links
 
-- [Repo](https://github.com/Rohit19060/<project-name> "<project-name> Repo")
+- [Research paper](https://arxiv.org/abs/2301.11325)
 
-- [Live](<Homepage url> "Live View")
-
-- [Bugs](https://github.com/Rohit19060/<project-name>/issues "Issues Page")
+- [Dataset](https://www.kaggle.com/datasets/googleai/musiccaps)
 
 - [API](<API Link> "API")
 
