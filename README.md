@@ -4,7 +4,7 @@
 
 ## Links
 
-- [Research paper](https://arxiv.org/abs/2301.11325)
+- [Research paper](https://arxiv.org/pdf/2306.05284)
 
 - [Dataset](https://www.kaggle.com/datasets/googleai/musiccaps)
 
@@ -52,7 +52,7 @@ For running the server file on you can use this command.
 
 ## Future Updates
 
-- [ ] Reliable Storage
+- [ ] Langchain integration
 
 ## Author
 
