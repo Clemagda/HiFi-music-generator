@@ -8,7 +8,7 @@ import numpy as np
 import base64
 
 
-@st.cache_ressource
+@st.cache_resource
 def load_model():
     model = MusicGen.get_pretrained('facebook/musicgen-small')
     return model
@@ -41,25 +41,30 @@ def generate_music_tensor(description, duration: int):
     return outputs[0]
 
 
-def save_audio(samples: torch.tensor):
+def save_audio(samples: torch.tensor, output_dir="audio_outputs", file_name="audio_0.wav"):
     """Save generated audio to .wav format
 
     Args:
         samples (torch.tensor): _description_
     """
-    sample_rate = 32000,
-    save_path = "audio_outputs/"
+    sample_rate = 32000
+    save_path = output_dir
 
-    assert samples.dim() == 2 or samples.dims() == 3
+    if not os.path.exists(save_path):
+        os.makedirs(save_path)
+
+    assert samples.dim() == 2 or samples.dim() == 3
 
     samples = samples.detach().cpu()
 
     if samples.dim() == 2:
         samples = samples[None, ...]
 
-        for idx, audio in enumerate(samples):
-            audio_path = os.path.join(save_path, f"audio_{idx}.wav")
-            torchaudio.save(audio_path, audio, sample_rate)
+    audio_path = os.path.join(save_path, file_name)
+    for idx, audio in enumerate(samples):
+        torchaudio.save(audio_path, audio, sample_rate)
+
+    return audio_path
 
 
 def get_binary_file_downloader_html(bin_file, file_label='File'):
@@ -81,7 +86,7 @@ def get_binary_file_downloader_html(bin_file, file_label='File'):
 
 
 st.set_page_config(
-    page_icon=":notes:",  # icones disponibles sur la doc streamlit
+    page_icon=":notes:",
     page_title="Music Gen"
 )
 
@@ -94,7 +99,9 @@ def main():
     text_area = st.text_area("Enter your music description here...")
     time_slider = st.slider("Select time duration (in seconds)", 2, 20, 5)
 
-    if text_area and time_slider:
+    generate_button = st.button("Generate")
+
+    if generate_button and text_area and time_slider:
         st.json(
             {
                 "Your description": text_area,
@@ -107,9 +114,8 @@ def main():
 
         print(f"Music tensors : {music_tensors}")
 
-        save_music_file = save_audio(music_tensors)
-        audio_file_path = "audio_outputs/audio_0.wav"
-        # TODO: modifier audio_file_path pour une indexatio dynamique.Actullement, aucun audio n'est gardé en mémoire.
+        audio_file_path = save_audio(music_tensors)
+
         audio_file = open(audio_file_path, 'rb')
         audio_bytes = audio_file.read()
 
@@ -118,6 +124,5 @@ def main():
             audio_file_path, 'Audio'), unsafe_allow_html=True)
 
 
-# TODO: afficher interface streamlit
 if __name__ == "__main__":
     main()
