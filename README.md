@@ -26,8 +26,9 @@ Une fois l'audio généré, ce dernier peut être écouté directement sur l'app
 **Clément MAGDALENA**
 
 - [Email](mailto:clmntmagdalena@gmail.com?subject=Hi "Hi!")
+- [LinkedIn](www.linkedin.com/in/clement-magdalena)
 
-- 
+
 ## Links
 
 - [Research paper](https://arxiv.org/pdf/2306.05284)
